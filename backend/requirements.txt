@@ -1,0 +1,40 @@
+# Django Core
+Django==5.0
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+
+# Database (PostgreSQL optional for now, SQLite will be used by default)
+# psycopg2-binary==2.9.9
+dj-database-url==2.1.0
+
+# Authentication
+djangorestframework-simplejwt==5.3.1
+djoser==2.2.2
+
+# Supabase
+supabase==2.3.0
+storage3==0.7.4
+
+# File handling
+Pillow==10.4.0
+# python-magic==0.4.27  # Optional, comment out if causing issues
+
+# YouTube API
+google-api-python-client==2.110.0
+google-auth-oauthlib==1.2.0
+
+# Environment variables
+python-decouple==3.8
+python-dotenv==1.0.0
+
+# Utilities
+pytz==2023.3
+requests==2.31.0
+
+# WSGI server for production
+gunicorn==21.2.0
+whitenoise==6.6.0
+
+# Development
+django-debug-toolbar==4.2.0
+

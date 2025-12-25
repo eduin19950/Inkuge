@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ratiochristi.rw/sitemap.xml
+
+
+
