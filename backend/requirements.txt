@@ -3,8 +3,8 @@ Django==5.0
 djangorestframework==3.14.0
 django-cors-headers==4.3.1
 
-# Database (PostgreSQL optional for now, SQLite will be used by default)
-# psycopg2-binary==2.9.9
+# Database
+psycopg2-binary==2.9.9
 dj-database-url==2.1.0
 
 # Authentication
