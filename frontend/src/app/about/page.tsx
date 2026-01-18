@@ -9,7 +9,7 @@ export default function AboutPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">About Us</h1>
             <p className="text-xl text-primary-100">
-              Learn about our mission, vision, and the heart behind Inkuge
+              Learn about our mission, vision, and the heart behind Apologetics Rwanda
             </p>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">Our Story</h2>
             <div className="prose prose-lg mx-auto text-gray-600">
               <p className="mb-6">
-                Inkuge was born out of a passion to see young people in Rwanda equipped 
+                Apologetics Rwanda was born out of a passion to see young people in Rwanda equipped 
                 with the knowledge and confidence to defend their Christian faith. We recognized that 
                 many students and young believers were facing tough questions about Christianity but 
                 lacked the resources to find solid, biblical answers.

@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           {/* About Section */}
           <div>
-            <h3 className="text-white text-lg font-bold mb-4">Inkuge</h3>
+            <h3 className="text-white text-lg font-bold mb-4">Apologetics Rwanda</h3>
             <p className="text-sm mb-4">
               Empowering the next generation for Christ through evangelism, apologetics, and discipleship.
             </p>
@@ -102,7 +102,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="h-5 w-5 text-primary-400 flex-shrink-0" />
-                <span>info@inkuge.rw</span>
+                <span>info@apologeticsrwanda.org</span>
               </li>
             </ul>
           </div>
@@ -167,7 +167,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-8 text-center text-sm">
-          <p>© 2025 Inkuge. All rights reserved.</p>
+          <p>© 2025 Apologetics Rwanda. All rights reserved.</p>
           <p className="mt-2">
             <Link href="/privacy" className="hover:text-primary-400 transition-colors">
               Privacy Policy

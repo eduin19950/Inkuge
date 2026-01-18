@@ -17,7 +17,7 @@ export default function Header() {
               <span className="text-white font-bold text-xl">RC</span>
             </div>
             <div className="hidden md:block">
-              <div className="text-xl font-bold text-gray-900">Inkuge</div>
+              <div className="text-xl font-bold text-gray-900">Apologetics Rwanda</div>
               <div className="text-xs text-gray-600">Digital Ministry Platform</div>
             </div>
           </Link>

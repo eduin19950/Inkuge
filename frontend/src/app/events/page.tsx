@@ -64,7 +64,7 @@ export default function EventsPage() {
       dateMonth: 'May 2025',
       duration: '1-Day Workshop',
       time: '9:00 AM - 4:00 PM EAT',
-      location: 'Inkuge Ministry Center, Kigali',
+      location: 'Apologetics Rwanda Ministry Center, Kigali',
       attendees: 'Limited to 50 Participants',
       category: ['workshops'],
       color: 'orange',
@@ -331,6 +331,9 @@ export default function EventsPage() {
     </div>
   )
 }
+
+
+
 
 
 

@@ -10,7 +10,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-24 md:py-32 relative">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Welcome to Inkuge
+              Welcome to Apologetics Rwanda
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-primary-100">
               Empowering youth through evangelism, apologetics, and discipleship

@@ -7,9 +7,9 @@ import Footer from '@/components/layout/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Inkuge - Digital Ministry Platform',
+  title: 'Apologetics Rwanda - Digital Ministry Platform',
   description: 'A unified platform for evangelism, Christian apologetics, pastoral training, and youth outreach in Rwanda.',
-  keywords: 'Inkuge, Ratio Christi, Rwanda, Christian Apologetics, Evangelism, Pastoral Training, Street Kids Ministry',
+  keywords: 'Apologetics Rwanda, Ratio Christi, Rwanda, Christian Apologetics, Evangelism, Pastoral Training, Street Kids Ministry',
 }
 
 export default function RootLayout({

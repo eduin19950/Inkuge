@@ -90,8 +90,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                    <p className="text-gray-600">info@inkuge.rw</p>
-                    <p className="text-gray-600">support@inkuge.rw</p>
+                    <p className="text-gray-600">info@apologeticsrwanda.org</p>
+                    <p className="text-gray-600">support@apologeticsrwanda.org</p>
                   </div>
                 </div>
               </div>
