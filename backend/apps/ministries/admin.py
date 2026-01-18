@@ -114,13 +114,21 @@ class MinistryAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Basic Information', {
-            'fields': ('name', 'ministry_type', 'tagline', 'description', 'is_active', 'order')
+            'fields': ('name', 'ministry_type', 'description', 'is_active', 'order')
         }),
         ('Upload Banner Image', {
             'fields': ('banner_image_file',),
         }),
         ('Or Use Banner URL', {
-            'fields': ('banner_image',),
+            'fields': ('banner_image', 'icon'),
+            'classes': ('collapse',),
+        }),
+        ('Contact Information', {
+            'fields': ('contact_email', 'contact_phone'),
+            'classes': ('collapse',),
+        }),
+        ('Social Media', {
+            'fields': ('facebook_url', 'twitter_url', 'instagram_url', 'youtube_url'),
             'classes': ('collapse',),
         }),
     )
