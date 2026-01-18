@@ -29,18 +29,25 @@ class TestimonyAdminForm(forms.ModelForm):
         if person_photo_file:
             try:
                 photo_url = upload_to_supabase(person_photo_file, folder='testimonies/people')
-                instance.person_photo = photo_url
+                if photo_url:
+                    instance.person_photo = photo_url
+                else:
+                    from django.contrib import messages
+                    raise forms.ValidationError("Photo upload failed. Please check Supabase configuration.")
             except Exception as e:
-                print(f"Warning: Failed to upload person photo: {str(e)}")
+                raise forms.ValidationError(f"Failed to upload person photo: {str(e)}")
         
         # Handle featured image upload (only if file is provided)
         featured_image_file = self.files.get('featured_image_file')
         if featured_image_file:
             try:
                 image_url = upload_to_supabase(featured_image_file, folder='testimonies/featured')
-                instance.featured_image = image_url
+                if image_url:
+                    instance.featured_image = image_url
+                else:
+                    raise forms.ValidationError("Featured image upload failed. Please check Supabase configuration.")
             except Exception as e:
-                print(f"Warning: Failed to upload featured image: {str(e)}")
+                raise forms.ValidationError(f"Failed to upload featured image: {str(e)}")
         
         if commit:
             instance.save()
