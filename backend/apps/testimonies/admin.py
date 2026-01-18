@@ -129,15 +129,14 @@ class TestimonyAdmin(admin.ModelAdmin):
         ('Person Information', {
             'fields': ('person_name', 'person_location')
         }),
-        ('Upload Person Photo', {
-            'fields': ('person_photo_file',),
-        }),
-        ('Upload Featured Image', {
-            'fields': ('featured_image_file',),
-        }),
-        ('Or Use URLs', {
+        ('Media (Use Image URLs)', {
             'fields': ('person_photo', 'featured_image', 'video_url'),
+            'description': 'Paste direct image URLs here. Upload from web or use services like Imgur, Cloudinary, or any public image URL.'
+        }),
+        ('Or Upload Files (Requires Supabase Setup)', {
+            'fields': ('person_photo_file', 'featured_image_file'),
             'classes': ('collapse',),
+            'description': 'File upload requires Supabase configuration. If uploads are slow, use the URL fields above instead.'
         }),
         ('Publishing', {
             'fields': ('is_featured', 'is_published', 'published_date')

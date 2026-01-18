@@ -102,27 +102,42 @@ def upload_to_supabase(file, folder: str = "uploads") -> str:
     Returns:
         Public URL of uploaded file
     """
-    storage = SupabaseStorage()
+    from django.conf import settings
     
-    # Generate unique filename
-    import uuid
-    from datetime import datetime
+    # Check if Supabase is configured
+    if not settings.SUPABASE_URL or not settings.SUPABASE_KEY:
+        print("⚠️ WARNING: Supabase credentials not configured. Skipping file upload.")
+        print("Please set SUPABASE_URL and SUPABASE_KEY in your environment variables.")
+        return ""
     
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    unique_id = str(uuid.uuid4())[:8]
-    file_extension = os.path.splitext(file.name)[1]
-    filename = f"{timestamp}_{unique_id}{file_extension}"
-    
-    file_path = f"{folder}/{filename}"
-    
-    # Upload file
-    public_url = storage.upload_file(
-        file_path,
-        file.read(),
-        content_type=file.content_type
-    )
-    
-    return public_url
+    try:
+        storage = SupabaseStorage()
+        
+        # Generate unique filename
+        import uuid
+        from datetime import datetime
+        
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        unique_id = str(uuid.uuid4())[:8]
+        file_extension = os.path.splitext(file.name)[1]
+        filename = f"{timestamp}_{unique_id}{file_extension}"
+        
+        file_path = f"{folder}/{filename}"
+        
+        # Upload file with timeout handling
+        print(f"📤 Uploading {file.name} to Supabase ({file.size} bytes)...")
+        public_url = storage.upload_file(
+            file_path,
+            file.read(),
+            content_type=file.content_type
+        )
+        print(f"✅ Upload successful: {public_url}")
+        
+        return public_url
+    except Exception as e:
+        print(f"❌ Supabase upload failed: {str(e)}")
+        print("The form will still save, but without the uploaded file.")
+        return ""
 
 
 
