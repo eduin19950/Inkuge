@@ -9,9 +9,9 @@ interface PhotoGallery {
   title: string
   description: string
   cover_photo: string | null
-  event_date: string
   photos_count: number
-  category: string
+  created_at: string
+  ministry_name: string
 }
 
 interface Photo {
@@ -57,7 +57,7 @@ export default function GalleryPage() {
     fetchData()
   }, [])
 
-  const categories = ['all', ...Array.from(new Set(galleries.map(g => g.category)))]
+  const ministries = ['all', ...Array.from(new Set(galleries.filter(g => g.ministry_name).map(g => g.ministry_name)))]
 
   return (
     <div>
@@ -80,17 +80,17 @@ export default function GalleryPage() {
       <section className="py-8 bg-white border-b">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-4 items-center justify-center">
-            {categories.map((category) => (
+            {ministries.map((ministry) => (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
+                key={ministry}
+                onClick={() => setSelectedCategory(ministry)}
                 className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
-                  selectedCategory === category
+                  selectedCategory === ministry
                     ? 'bg-purple-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                {category === 'all' ? 'All Photos' : category.replace('_', ' ')}
+                {ministry === 'all' ? 'All Photos' : ministry}
               </button>
             ))}
           </div>
@@ -115,7 +115,7 @@ export default function GalleryPage() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {galleries
-                .filter(g => selectedCategory === 'all' || g.category === selectedCategory)
+                .filter(g => selectedCategory === 'all' || g.ministry_name === selectedCategory)
                 .map((gallery, index) => (
                 <div key={gallery.id} className="group cursor-pointer">
                   <div className={`relative aspect-[4/3] bg-gradient-to-br ${CATEGORY_COLORS[index % CATEGORY_COLORS.length]} rounded-xl overflow-hidden mb-4`}>
@@ -141,7 +141,7 @@ export default function GalleryPage() {
                   </h3>
                   <div className="flex items-center text-gray-600 text-sm">
                     <Calendar className="h-4 w-4 mr-1" />
-                    <span>{new Date(gallery.event_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                    <span>{new Date(gallery.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                   </div>
                 </div>
               ))}
