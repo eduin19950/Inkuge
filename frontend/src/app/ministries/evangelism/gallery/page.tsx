@@ -139,6 +139,11 @@ export default function GalleryPage() {
                   <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-purple-600 transition-colors">
                     {gallery.title}
                   </h3>
+                  {gallery.description && (
+                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                      {gallery.description}
+                    </p>
+                  )}
                   <div className="flex items-center text-gray-600 text-sm">
                     <Calendar className="h-4 w-4 mr-1" />
                     <span>{new Date(gallery.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
