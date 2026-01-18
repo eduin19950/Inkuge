@@ -23,10 +23,16 @@ export default function TestimoniesPage() {
     const fetchTestimonies = async () => {
       try {
         const response = await fetch('https://api.apologeticsrwanda.org/api/testimonies/')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
         const data = await response.json()
-        setTestimonies(data.results || data)
+        // Handle both paginated and non-paginated responses
+        const testimoniesData = Array.isArray(data) ? data : (data.results || [])
+        setTestimonies(testimoniesData)
       } catch (error) {
         console.error('Error fetching testimonies:', error)
+        setTestimonies([]) // Set to empty array on error
       } finally {
         setLoading(false)
       }
@@ -34,8 +40,14 @@ export default function TestimoniesPage() {
     fetchTestimonies()
   }, [])
 
-  const featuredTestimony = testimonies.find(t => t.is_featured) || testimonies[0]
-  const otherTestimonies = testimonies.filter(t => !t.is_featured)
+  // Safely access testimonies only if it's an array
+  const featuredTestimony = Array.isArray(testimonies) && testimonies.length > 0
+    ? testimonies.find(t => t.is_featured) || testimonies[0]
+    : null
+
+  const otherTestimonies = Array.isArray(testimonies)
+    ? testimonies.filter(t => !t.is_featured)
+    : []
 
   const getInitials = (name: string) => {
     return name
