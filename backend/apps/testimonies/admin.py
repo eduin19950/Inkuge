@@ -93,6 +93,22 @@ class PhotoAdminForm(forms.ModelForm):
         model = Photo
         fields = '__all__'
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Make photo_url not required in the form (it will be populated by file upload)
+        self.fields['photo_url'].required = False
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        image_file = self.files.get('image_file')
+        photo_url = cleaned_data.get('photo_url')
+        
+        # Either file upload or URL is required
+        if not image_file and not photo_url:
+            raise forms.ValidationError("Please either upload an image file or provide a photo URL.")
+        
+        return cleaned_data
+    
     def save(self, commit=True):
         instance = super().save(commit=False)
         
@@ -102,10 +118,13 @@ class PhotoAdminForm(forms.ModelForm):
             try:
                 # Upload to Supabase
                 photo_url = upload_to_supabase(image_file, folder='photos')
-                instance.photo_url = photo_url
-                instance.thumbnail_url = photo_url  # Use same URL for thumbnail
+                if photo_url:
+                    instance.photo_url = photo_url
+                    instance.thumbnail_url = photo_url  # Use same URL for thumbnail
+                else:
+                    raise forms.ValidationError("Failed to upload image to cloud storage.")
             except Exception as e:
-                print(f"Warning: Failed to upload image: {str(e)}")
+                raise forms.ValidationError(f"Failed to upload image: {str(e)}")
         
         if commit:
             instance.save()
