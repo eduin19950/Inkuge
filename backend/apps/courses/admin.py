@@ -19,7 +19,7 @@ class CourseAdminForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         
-        thumbnail_image_file = self.cleaned_data.get('thumbnail_image_file')
+        thumbnail_image_file = self.files.get('thumbnail_image_file')
         if thumbnail_image_file:
             try:
                 thumbnail_url = upload_to_supabase(thumbnail_image_file, folder='courses/thumbnails')

@@ -90,7 +90,7 @@ class VideoLibraryAdminForm(forms.ModelForm):
         instance = super().save(commit=False)
         
         # Handle video upload to YouTube
-        video_file = self.cleaned_data.get('video_file')
+        video_file = self.files.get('video_file')
         if video_file:
             try:
                 # Prepare YouTube metadata
@@ -125,7 +125,7 @@ class VideoLibraryAdminForm(forms.ModelForm):
                 raise forms.ValidationError(error_msg)
         
         # Handle custom thumbnail upload
-        thumbnail_file = self.cleaned_data.get('thumbnail_file')
+        thumbnail_file = self.files.get('thumbnail_file')
         if thumbnail_file:
             try:
                 thumbnail_url = upload_to_supabase(thumbnail_file, folder='videos/thumbnails')
@@ -154,7 +154,7 @@ class PlaylistAdminForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         
-        cover_image_file = self.cleaned_data.get('cover_image_file')
+        cover_image_file = self.files.get('cover_image_file')
         if cover_image_file:
             try:
                 cover_url = upload_to_supabase(cover_image_file, folder='playlists/covers')

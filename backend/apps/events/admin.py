@@ -30,7 +30,7 @@ class EventAdminForm(forms.ModelForm):
         instance = super().save(commit=False)
         
         # Handle speaker photo upload
-        speaker_photo_file = self.cleaned_data.get('speaker_photo_file')
+        speaker_photo_file = self.files.get('speaker_photo_file')
         if speaker_photo_file:
             try:
                 photo_url = upload_to_supabase(speaker_photo_file, folder='events/speakers')
@@ -39,7 +39,7 @@ class EventAdminForm(forms.ModelForm):
                 raise forms.ValidationError(f"Failed to upload speaker photo: {str(e)}")
         
         # Handle banner image upload
-        banner_image_file = self.cleaned_data.get('banner_image_file')
+        banner_image_file = self.files.get('banner_image_file')
         if banner_image_file:
             try:
                 banner_url = upload_to_supabase(banner_image_file, folder='events/banners')
@@ -48,7 +48,7 @@ class EventAdminForm(forms.ModelForm):
                 raise forms.ValidationError(f"Failed to upload banner image: {str(e)}")
         
         # Handle thumbnail image upload
-        thumbnail_image_file = self.cleaned_data.get('thumbnail_image_file')
+        thumbnail_image_file = self.files.get('thumbnail_image_file')
         if thumbnail_image_file:
             try:
                 thumbnail_url = upload_to_supabase(thumbnail_image_file, folder='events/thumbnails')

@@ -19,7 +19,7 @@ class MinistryAdminForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         
-        banner_image_file = self.cleaned_data.get('banner_image_file')
+        banner_image_file = self.files.get('banner_image_file')
         if banner_image_file:
             try:
                 banner_url = upload_to_supabase(banner_image_file, folder='ministries/banners')
@@ -47,7 +47,7 @@ class MinistryNewsAdminForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         
-        featured_image_file = self.cleaned_data.get('featured_image_file')
+        featured_image_file = self.files.get('featured_image_file')
         if featured_image_file:
             try:
                 image_url = upload_to_supabase(featured_image_file, folder='ministries/news')
@@ -81,7 +81,7 @@ class MinistryResourceAdminForm(forms.ModelForm):
         instance = super().save(commit=False)
         
         # Handle resource file upload
-        resource_file = self.cleaned_data.get('resource_file')
+        resource_file = self.files.get('resource_file')
         if resource_file:
             try:
                 file_url = upload_to_supabase(resource_file, folder='ministries/resources')
@@ -90,7 +90,7 @@ class MinistryResourceAdminForm(forms.ModelForm):
                 raise forms.ValidationError(f"Failed to upload resource file: {str(e)}")
         
         # Handle thumbnail upload
-        thumbnail_file = self.cleaned_data.get('thumbnail_file')
+        thumbnail_file = self.files.get('thumbnail_file')
         if thumbnail_file:
             try:
                 thumbnail_url = upload_to_supabase(thumbnail_file, folder='ministries/thumbnails')

@@ -24,23 +24,23 @@ class TestimonyAdminForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         
-        # Handle person photo upload
-        person_photo_file = self.cleaned_data.get('person_photo_file')
+        # Handle person photo upload (only if file is provided)
+        person_photo_file = self.files.get('person_photo_file')
         if person_photo_file:
             try:
                 photo_url = upload_to_supabase(person_photo_file, folder='testimonies/people')
                 instance.person_photo = photo_url
             except Exception as e:
-                raise forms.ValidationError(f"Failed to upload person photo: {str(e)}")
+                print(f"Warning: Failed to upload person photo: {str(e)}")
         
-        # Handle featured image upload
-        featured_image_file = self.cleaned_data.get('featured_image_file')
+        # Handle featured image upload (only if file is provided)
+        featured_image_file = self.files.get('featured_image_file')
         if featured_image_file:
             try:
                 image_url = upload_to_supabase(featured_image_file, folder='testimonies/featured')
                 instance.featured_image = image_url
             except Exception as e:
-                raise forms.ValidationError(f"Failed to upload featured image: {str(e)}")
+                print(f"Warning: Failed to upload featured image: {str(e)}")
         
         if commit:
             instance.save()
@@ -62,13 +62,13 @@ class PhotoGalleryAdminForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         
-        cover_photo_file = self.cleaned_data.get('cover_photo_file')
+        cover_photo_file = self.files.get('cover_photo_file')
         if cover_photo_file:
             try:
                 cover_url = upload_to_supabase(cover_photo_file, folder='galleries/covers')
                 instance.cover_photo = cover_url
             except Exception as e:
-                raise forms.ValidationError(f"Failed to upload cover photo: {str(e)}")
+                print(f"Warning: Failed to upload cover photo: {str(e)}")
         
         if commit:
             instance.save()
@@ -89,8 +89,8 @@ class PhotoAdminForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         
-        # Handle file upload
-        image_file = self.cleaned_data.get('image_file')
+        # Handle file upload (only if file is provided)
+        image_file = self.files.get('image_file')
         if image_file:
             try:
                 # Upload to Supabase
@@ -98,7 +98,7 @@ class PhotoAdminForm(forms.ModelForm):
                 instance.photo_url = photo_url
                 instance.thumbnail_url = photo_url  # Use same URL for thumbnail
             except Exception as e:
-                raise forms.ValidationError(f"Failed to upload image: {str(e)}")
+                print(f"Warning: Failed to upload image: {str(e)}")
         
         if commit:
             instance.save()
