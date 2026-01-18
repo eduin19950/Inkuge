@@ -25,7 +25,7 @@ export default function TestimoniesPage() {
   useEffect(() => {
     const fetchTestimonies = async () => {
       try {
-        const response = await fetch('https://api.apologeticsrwanda.org/api/testimonies/')
+        const response = await fetch('https://api.apologeticsrwanda.org/api/testimonies/testimonies/')
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
@@ -53,11 +53,13 @@ export default function TestimoniesPage() {
     : []
 
   const getInitials = (name: string) => {
+    if (!name || name.trim() === '') return '?'
     return name
       .split(' ')
       .map(n => n[0])
       .join('')
       .toUpperCase()
+      .substring(0, 2) // Max 2 letters
   }
 
   return (
@@ -99,8 +101,10 @@ export default function TestimoniesPage() {
                     </div>
                   )}
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-1">{featuredTestimony.person_name}</h3>
-                    <p className="text-gray-600">{featuredTestimony.person_location}</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-1">
+                      {featuredTestimony.person_name || 'Anonymous'}
+                    </h3>
+                    <p className="text-gray-600">{featuredTestimony.person_location || 'Rwanda'}</p>
                   </div>
                 </div>
                 <Quote className="h-10 w-10 text-teal-600 mb-4" />
@@ -152,7 +156,7 @@ export default function TestimoniesPage() {
                       </div>
                     )}
                     <div>
-                      <h3 className="font-bold text-gray-900">{testimony.person_name}</h3>
+                      <h3 className="font-bold text-gray-900">{testimony.person_name || 'Anonymous'}</h3>
                       <p className="text-sm text-gray-600">{testimony.person_location || 'Rwanda'}</p>
                     </div>
                   </div>
