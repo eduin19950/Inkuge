@@ -12,8 +12,8 @@ djangorestframework-simplejwt==5.3.1
 djoser==2.2.2
 
 # Supabase
-supabase==2.13.2
-storage3==0.8.2
+supabase==2.27.2
+storage3==0.8.1
 
 # File handling
 Pillow==10.4.0
