@@ -6,13 +6,16 @@ import Image from 'next/image'
 
 interface Testimony {
   id: number
+  title: string
   person_name: string
-  person_role: string
+  person_location: string
   person_photo: string | null
-  testimony_text: string
+  story: string
+  excerpt: string
   category: string
-  rating: number
   is_featured: boolean
+  featured_image: string | null
+  video_url: string | null
 }
 
 export default function TestimoniesPage() {
@@ -97,24 +100,15 @@ export default function TestimoniesPage() {
                   )}
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-1">{featuredTestimony.person_name}</h3>
-                    <p className="text-gray-600">{featuredTestimony.person_role}</p>
+                    <p className="text-gray-600">{featuredTestimony.person_location}</p>
                   </div>
                 </div>
                 <Quote className="h-10 w-10 text-teal-600 mb-4" />
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                  {featuredTestimony.testimony_text}
+                  {featuredTestimony.story}
                 </p>
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star 
-                      key={star} 
-                      className={`h-5 w-5 ${
-                        star <= featuredTestimony.rating 
-                          ? 'fill-yellow-400 text-yellow-400' 
-                          : 'text-gray-300'
-                      }`} 
-                    />
-                  ))}
+                <div className="inline-block px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-semibold">
+                  {featuredTestimony.category.replace('_', ' ')}
                 </div>
               </div>
             </div>
@@ -159,29 +153,17 @@ export default function TestimoniesPage() {
                     )}
                     <div>
                       <h3 className="font-bold text-gray-900">{testimony.person_name}</h3>
-                      <p className="text-sm text-gray-600">{testimony.person_role}</p>
+                      <p className="text-sm text-gray-600">{testimony.person_location || 'Rwanda'}</p>
                     </div>
                   </div>
                   <div className="inline-block px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-semibold mb-3">
-                    {testimony.category}
+                    {testimony.category.replace('_', ' ')}
                   </div>
                   <p className="text-gray-700 mb-4 leading-relaxed">
-                    {testimony.testimony_text.length > 200
-                      ? `${testimony.testimony_text.substring(0, 200)}...`
-                      : testimony.testimony_text}
+                    {testimony.excerpt || (testimony.story.length > 200
+                      ? `${testimony.story.substring(0, 200)}...`
+                      : testimony.story)}
                   </p>
-                  <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star 
-                        key={star} 
-                        className={`h-4 w-4 ${
-                          star <= testimony.rating 
-                            ? 'fill-yellow-400 text-yellow-400' 
-                            : 'text-gray-300'
-                        }`} 
-                      />
-                    ))}
-                  </div>
                 </div>
               ))}
             </div>
