@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { GraduationCap, Users, BookOpen, Award, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react'
+import { GraduationCap, Users, BookOpen, Award, ArrowRight, ChevronDown, ChevronUp, Video, Camera, Heart, CalendarDays, DollarSign } from 'lucide-react'
 import { useState } from 'react'
 
 export default function LeadershipPage() {
@@ -297,6 +297,75 @@ export default function LeadershipPage() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Explore Our Ministry */}
+      <section className="py-16 md:py-20 bg-white border-t border-gray-100">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+            Explore Our Ministry
+          </h2>
+          <p className="text-lg text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+            Discover more about our leadership training ministry through videos, photos, testimonies, and more
+          </p>
+
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+            <Link 
+              href="/ministries/leadership/videos"
+              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
+            >
+              <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 transition-colors">
+                <Video className="h-7 w-7 text-red-600 group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Videos</h3>
+              <p className="text-sm text-gray-600">Watch our ministry in action</p>
+            </Link>
+
+            <Link 
+              href="/ministries/leadership/gallery"
+              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
+            >
+              <div className="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-600 transition-colors">
+                <Camera className="h-7 w-7 text-purple-600 group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Gallery</h3>
+              <p className="text-sm text-gray-600">Browse event photos</p>
+            </Link>
+
+            <Link 
+              href="/ministries/leadership/testimonies"
+              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
+            >
+              <div className="w-14 h-14 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-600 transition-colors">
+                <Heart className="h-7 w-7 text-teal-600 group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Testimonies</h3>
+              <p className="text-sm text-gray-600">Read life stories</p>
+            </Link>
+
+            <Link 
+              href="/ministries/leadership/activities"
+              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
+            >
+              <div className="w-14 h-14 bg-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-600 transition-colors">
+                <CalendarDays className="h-7 w-7 text-indigo-600 group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Activities</h3>
+              <p className="text-sm text-gray-600">See our schedule</p>
+            </Link>
+
+            <Link 
+              href="/ministries/leadership/donate"
+              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
+            >
+              <div className="w-14 h-14 bg-rose-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-rose-600 transition-colors">
+                <DollarSign className="h-7 w-7 text-rose-600 group-hover:text-white transition-colors" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Donate</h3>
+              <p className="text-sm text-gray-600">Support our work</p>
+            </Link>
           </div>
         </div>
       </section>

@@ -279,12 +279,12 @@ export default function ApologeticsPage() {
             Explore Our Ministry
           </h2>
           <p className="text-lg text-gray-600 mb-12 text-center max-w-2xl mx-auto">
-            Discover more about our campus evangelism ministry through videos, photos, testimonies, and more
+            Discover more about our apologetics ministry through videos, photos, testimonies, and more
           </p>
 
           <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
             <Link 
-              href="/ministries/evangelism/videos"
+              href="/ministries/apologetics/videos"
               className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
             >
               <div className="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-red-600 transition-colors">
@@ -295,7 +295,7 @@ export default function ApologeticsPage() {
             </Link>
 
             <Link 
-              href="/ministries/evangelism/gallery"
+              href="/ministries/apologetics/gallery"
               className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
             >
               <div className="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-600 transition-colors">
@@ -306,7 +306,7 @@ export default function ApologeticsPage() {
             </Link>
 
             <Link 
-              href="/ministries/evangelism/testimonies"
+              href="/ministries/apologetics/testimonies"
               className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
             >
               <div className="w-14 h-14 bg-teal-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-600 transition-colors">
@@ -317,7 +317,7 @@ export default function ApologeticsPage() {
             </Link>
 
             <Link 
-              href="/ministries/evangelism/activities"
+              href="/ministries/apologetics/activities"
               className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
             >
               <div className="w-14 h-14 bg-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-600 transition-colors">
@@ -328,7 +328,7 @@ export default function ApologeticsPage() {
             </Link>
 
             <Link 
-              href="/ministries/evangelism/donate"
+              href="/ministries/apologetics/donate"
               className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all text-center group border border-gray-200"
             >
               <div className="w-14 h-14 bg-rose-100 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-rose-600 transition-colors">
