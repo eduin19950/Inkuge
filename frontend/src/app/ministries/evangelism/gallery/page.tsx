@@ -35,6 +35,7 @@ export default function GalleryPage() {
   const [photos, setPhotos] = useState<Photo[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const [selectedGallery, setSelectedGallery] = useState<PhotoGallery | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,7 +118,11 @@ export default function GalleryPage() {
               {galleries
                 .filter(g => selectedCategory === 'all' || g.ministry_name === selectedCategory)
                 .map((gallery, index) => (
-                <div key={gallery.id} className="group cursor-pointer">
+                <div 
+                  key={gallery.id} 
+                  className="group cursor-pointer"
+                  onClick={() => setSelectedGallery(gallery)}
+                >
                   <div className={`relative aspect-[4/3] bg-gradient-to-br ${CATEGORY_COLORS[index % CATEGORY_COLORS.length]} rounded-xl overflow-hidden mb-4`}>
                     {gallery.cover_photo ? (
                       <Image
@@ -140,11 +145,18 @@ export default function GalleryPage() {
                     {gallery.title}
                   </h3>
                   {gallery.description && (
-                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">
-                      {gallery.description}
-                    </p>
+                    <>
+                      <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                        {gallery.description}
+                      </p>
+                      {gallery.description.length > 100 && (
+                        <span className="text-purple-600 text-sm font-medium hover:underline">
+                          Read more →
+                        </span>
+                      )}
+                    </>
                   )}
-                  <div className="flex items-center text-gray-600 text-sm">
+                  <div className="flex items-center text-gray-600 text-sm mt-2">
                     <Calendar className="h-4 w-4 mr-1" />
                     <span>{new Date(gallery.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                   </div>
@@ -239,6 +251,82 @@ export default function GalleryPage() {
           </div>
         </div>
       </section>
+
+      {/* Gallery Details Modal */}
+      {selectedGallery && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedGallery(null)}
+        >
+          <div 
+            className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
+              <h3 className="text-2xl font-bold text-gray-900">{selectedGallery.title}</h3>
+              <button 
+                onClick={() => setSelectedGallery(null)}
+                className="text-gray-500 hover:text-gray-700 text-2xl font-bold w-8 h-8 flex items-center justify-center"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6">
+              {/* Cover Image */}
+              {selectedGallery.cover_photo && (
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-6">
+                  <Image
+                    src={selectedGallery.cover_photo}
+                    alt={selectedGallery.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+
+              {/* Gallery Info */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Calendar className="h-4 w-4" />
+                    <span>{new Date(selectedGallery.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                  </div>
+                  {selectedGallery.ministry_name && (
+                    <div className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">
+                      {selectedGallery.ministry_name}
+                    </div>
+                  )}
+                  <div className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold">
+                    {selectedGallery.photos_count} photos
+                  </div>
+                </div>
+
+                {/* Full Description */}
+                {selectedGallery.description && (
+                  <div className="prose prose-lg max-w-none">
+                    <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                      {selectedGallery.description}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="sticky bottom-0 bg-gray-50 px-6 py-4 border-t">
+              <button 
+                onClick={() => setSelectedGallery(null)}
+                className="w-full px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
