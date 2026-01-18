@@ -13,7 +13,7 @@ djoser==2.2.2
 
 # Supabase
 supabase==2.27.2
-storage3==0.8.1
+storage3==2.27.2
 
 # File handling
 Pillow==10.4.0
