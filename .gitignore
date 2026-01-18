@@ -32,6 +32,10 @@ backend/media/
 staticfiles/
 local_settings.py
 
+# YouTube OAuth token
+youtube_token.pickle
+backend/youtube_token.pickle
+
 # Node
 node_modules/
 npm-debug.log*

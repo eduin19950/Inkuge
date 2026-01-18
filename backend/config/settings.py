@@ -169,6 +169,8 @@ SUPABASE_BUCKET = config('SUPABASE_BUCKET', default='inkuge-media')
 # YouTube API Configuration
 YOUTUBE_API_KEY = config('YOUTUBE_API_KEY', default='')
 YOUTUBE_CHANNEL_ID = config('YOUTUBE_CHANNEL_ID', default='')
+YOUTUBE_CLIENT_ID = config('YOUTUBE_CLIENT_ID', default='')
+YOUTUBE_CLIENT_SECRET = config('YOUTUBE_CLIENT_SECRET', default='')
 
 # Jitsi Configuration
 JITSI_APP_ID = config('JITSI_APP_ID', default='')
