@@ -27,6 +27,8 @@ class PhotoSerializer(serializers.ModelSerializer):
     """Serializer for Photo model."""
     
     uploaded_by_name = serializers.CharField(source='uploaded_by.full_name', read_only=True)
+    gallery_title = serializers.CharField(source='gallery.title', read_only=True)
+    gallery_ministry_name = serializers.CharField(source='gallery.ministry.name', read_only=True, allow_null=True)
     
     class Meta:
         model = Photo
