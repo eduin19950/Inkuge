@@ -13,7 +13,7 @@ class VideoLibraryAdminForm(forms.ModelForm):
     video_file = forms.FileField(
         required=False,
         label="Upload Video File",
-        help_text="Upload video file (MP4, AVI, MOV, etc.). Will be automatically uploaded to YouTube.",
+        help_text="Upload video file (MP4, AVI, MOV, etc.). Will be automatically processed and hosted.",
         widget=forms.ClearableFileInput(attrs={
             'accept': 'video/*',
             'class': 'video-upload-input'
@@ -24,27 +24,27 @@ class VideoLibraryAdminForm(forms.ModelForm):
     thumbnail_file = forms.ImageField(
         required=False,
         label="Upload Thumbnail Image",
-        help_text="Upload custom video thumbnail (optional - YouTube generates one automatically)"
+        help_text="Upload custom video thumbnail (optional - one will be generated automatically)"
     )
     
-    # YouTube settings
+    # Video metadata settings
     youtube_title = forms.CharField(
         required=False,
         max_length=100,
-        label="YouTube Title",
+        label="Custom Video Title",
         help_text="Leave blank to use the video title above"
     )
     
     youtube_description = forms.CharField(
         required=False,
         widget=forms.Textarea(attrs={'rows': 4}),
-        label="YouTube Description",
-        help_text="Description for YouTube (leave blank to use video description)"
+        label="Custom Description",
+        help_text="Custom description for the video (leave blank to use video description)"
     )
     
     youtube_tags = forms.CharField(
         required=False,
-        label="YouTube Tags",
+        label="Tags",
         help_text="Comma-separated tags (e.g., apologetics, christian, rwanda)"
     )
     
@@ -52,7 +52,7 @@ class VideoLibraryAdminForm(forms.ModelForm):
         choices=[('', '-- Select Category --')] + [(k, v) for k, v in YOUTUBE_CATEGORIES.items()],
         required=False,
         initial='22',
-        label="YouTube Category"
+        label="Video Category"
     )
     
     youtube_privacy = forms.ChoiceField(
@@ -78,10 +78,10 @@ class VideoLibraryAdminForm(forms.ModelForm):
         video_file = cleaned_data.get('video_file')
         youtube_video_id = self.instance.youtube_video_id if self.instance.pk else None
         
-        # Check if we have either a video file or existing YouTube video
+        # Check if we have either a video file or existing video
         if not video_file and not youtube_video_id:
             raise forms.ValidationError(
-                "Please upload a video file. It will be automatically uploaded to YouTube."
+                "Please upload a video file. It will be automatically processed and hosted."
             )
         
         return cleaned_data
@@ -101,8 +101,8 @@ class VideoLibraryAdminForm(forms.ModelForm):
                 youtube_category = self.cleaned_data.get('youtube_category') or '22'
                 youtube_privacy = self.cleaned_data.get('youtube_privacy') or 'public'
                 
-                # Upload to YouTube
-                print(f"Uploading video to YouTube: {youtube_title}")
+                # Upload video
+                print(f"Processing video: {youtube_title}")
                 result = upload_video_to_youtube(
                     video_file=video_file,
                     title=youtube_title,
@@ -112,15 +112,15 @@ class VideoLibraryAdminForm(forms.ModelForm):
                     privacy_status=youtube_privacy
                 )
                 
-                # Save YouTube details
+                # Save video details
                 instance.youtube_video_id = result['video_id']
                 instance.youtube_url = result['video_url']
                 instance.thumbnail_url = result['thumbnail_url']
                 
-                print(f"✅ Video uploaded successfully! ID: {result['video_id']}")
+                print(f"✅ Video processed successfully! ID: {result['video_id']}")
                 
             except Exception as e:
-                error_msg = f"Failed to upload video to YouTube: {str(e)}"
+                error_msg = f"Failed to process video: {str(e)}"
                 print(f"❌ {error_msg}")
                 raise forms.ValidationError(error_msg)
         
@@ -185,11 +185,11 @@ class VideoLibraryAdmin(admin.ModelAdmin):
         ('Basic Information', {
             'fields': ('title', 'slug', 'description', 'category', 'ministry')
         }),
-        ('📹 Upload Video to YouTube', {
+        ('📹 Upload Video', {
             'fields': ('video_file',),
-            'description': 'Upload your video file here. It will be automatically uploaded to your YouTube channel.'
+            'description': 'Upload your video file here. It will be automatically processed and hosted.'
         }),
-        ('🎬 YouTube Settings', {
+        ('🎬 Video Settings', {
             'fields': (
                 'youtube_title',
                 'youtube_description',
@@ -197,14 +197,14 @@ class VideoLibraryAdmin(admin.ModelAdmin):
                 'youtube_category',
                 'youtube_privacy'
             ),
-            'description': 'Customize YouTube video settings (optional)'
+            'description': 'Customize video settings (optional)'
         }),
         ('🖼️ Custom Thumbnail (Optional)', {
             'fields': ('thumbnail_file',),
             'classes': ('collapse',),
-            'description': 'Upload custom thumbnail or leave blank to use YouTube auto-generated thumbnail'
+            'description': 'Upload custom thumbnail or leave blank to use auto-generated thumbnail'
         }),
-        ('📊 YouTube Video Info (Auto-generated)', {
+        ('📊 Video Info (Auto-generated)', {
             'fields': ('youtube_video_id', 'youtube_url', 'thumbnail_url', 'duration_seconds'),
             'classes': ('collapse',),
             'description': 'These fields are automatically filled after upload'
@@ -223,7 +223,7 @@ class VideoLibraryAdmin(admin.ModelAdmin):
         
         try:
             super().save_model(request, obj, form, change)
-            messages.success(request, '✅ Video uploaded to YouTube successfully!')
+            messages.success(request, '✅ Video uploaded successfully!')
         except Exception as e:
             messages.error(request, f'❌ Error uploading video: {str(e)}')
             raise

@@ -77,3 +77,7 @@ htmlcov/
 
 
 
+
+# YouTube OAuth credentials
+backend/client_secrets.json
+backend/youtube_token.pickle

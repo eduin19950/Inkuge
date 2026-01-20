@@ -26,6 +26,7 @@ class YouTubeUploader:
     def authenticate(self):
         """Authenticate with YouTube API using OAuth 2.0."""
         token_path = os.path.join(settings.BASE_DIR, 'youtube_token.pickle')
+        client_secrets_path = os.path.join(settings.BASE_DIR, 'client_secrets.json')
         
         # Load existing credentials
         if os.path.exists(token_path):
@@ -37,19 +38,24 @@ class YouTubeUploader:
             if self.credentials and self.credentials.expired and self.credentials.refresh_token:
                 self.credentials.refresh(Request())
             else:
-                # Create credentials from environment variables
-                client_config = {
-                    "installed": {
-                        "client_id": settings.YOUTUBE_CLIENT_ID,
-                        "client_secret": settings.YOUTUBE_CLIENT_SECRET,
-                        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-                        "token_uri": "https://oauth2.googleapis.com/token",
-                        "redirect_uris": ["http://localhost:8000"]
+                # Try to load from client_secrets.json file first
+                if os.path.exists(client_secrets_path):
+                    flow = InstalledAppFlow.from_client_secrets_file(client_secrets_path, SCOPES)
+                    self.credentials = flow.run_local_server(port=8080)
+                else:
+                    # Fallback to environment variables
+                    client_config = {
+                        "installed": {
+                            "client_id": settings.YOUTUBE_CLIENT_ID,
+                            "client_secret": settings.YOUTUBE_CLIENT_SECRET,
+                            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                            "token_uri": "https://oauth2.googleapis.com/token",
+                            "redirect_uris": ["http://localhost:8080"]
+                        }
                     }
-                }
-                
-                flow = InstalledAppFlow.from_client_config(client_config, SCOPES)
-                self.credentials = flow.run_local_server(port=8000)
+                    
+                    flow = InstalledAppFlow.from_client_config(client_config, SCOPES)
+                    self.credentials = flow.run_local_server(port=8080)
             
             # Save credentials for future use
             with open(token_path, 'wb') as token:

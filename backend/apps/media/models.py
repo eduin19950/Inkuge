@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class VideoLibrary(models.Model):
-    """YouTube videos library."""
+    """Video library with cloud hosting."""
     
     class Category(models.TextChoices):
         SERMON = 'SERMON', _('Sermon')
@@ -17,7 +17,7 @@ class VideoLibrary(models.Model):
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True)
     
-    youtube_video_id = models.CharField(max_length=50, help_text="YouTube video ID")
+    youtube_video_id = models.CharField(max_length=50, help_text="Video ID")
     youtube_url = models.URLField()
     thumbnail_url = models.URLField(blank=True, null=True)
     
@@ -67,7 +67,7 @@ class VideoLibrary(models.Model):
 
 
 class Playlist(models.Model):
-    """YouTube playlists."""
+    """Video playlists."""
     
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
